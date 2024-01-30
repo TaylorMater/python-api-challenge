@@ -14,7 +14,7 @@ Riley Taylor
 I have imported the json library to help test API responses so as to be better able to read them. 
 
 
-I also noted that the setup of this script didn't work the way it probably ought to. At first I thought the citipy library wasn't working properly (and frankly, I do think I have found one error, but I can't seem to replicate it for any other data points, so I assume it's a niche issue that will rarely be encountered, or a user error I missed). However, I realized that the API calls to openweather using a city name in as the query search parameter, e.g. 
+I also noted that the setup of this script didn't work the way it probably ought to. At first I thought the citipy library wasn't working properly (and frankly, I do think I have found one error, but I can't seem to replicate it for any other data points, so I assume it's a niche issue that will rarely be encountered, or a user error I missed). However, I realized that the API calls to OpenWeather using a city name in as the query search parameter as described [here](https://openweathermap.org/current), e.g. 
 
 ```
 url = "http://api.openweathermap.org/data/2.5/weather?"
@@ -28,7 +28,7 @@ would encounter naming collisions. If the nearest city returned was say, Paris, 
 
 This makes sense from OpenWeather's perspective - far more people will care about data for Paris, France than Paris, Texas. It's the natural solution to the fact that the city name is duplicated. However, it technically skews the data we originally generated. Instead of aggregating random cities, we aggregate random city names, and then choose the most populous cities that share those names as our actual data set. We should expect our data to skew, albeit slightly, towards large population centers. When I was testing, it was pretty easy to come up with examples of the collisions. Albany, Australia vs Albany, New York, USA. Santa Monica, California, USA vs Santa Monica, Philippines (by the way, this is where I found [the bug](#citipy-bug)).  
 
-There's a fairly simple fix to this naming collision though. The OpenWeather API allows us to make requests by latitude and longitude by using the following query structure:
+There's a fairly simple fix to this naming collision though. The OpenWeather API allows us to make requests by latitude and longitude by using the following query structure (I have dropped the "&units=metric" from the query, choosing to opt for standard because the only difference is that metric occasionally has some units in C instead of K):
 
 ```
 url = "https://api.openweathermap.org/data/2.5/weather?"
@@ -65,9 +65,15 @@ for test_lat_lng in test_lat_lngs:
         test_cities_location_data.append((city.lat, city.lng, city.country_code))
 ```
 
-I prepended test_ to the variable names of larger scope so that I could compare the outputs in separate cells. Essentially, the solution I used was to add another list `test_cities_location_data` that is initialized as the `test_cities` list is initialized. I referenced the source for citipy [here](https://github.com/wingchen/citipy) and saw that there were public fields for latitude, longitude, and country code we could access for a `city` object. So once a `city` object is returned by `nearest_city()`, we can grab the other location data using dot notation, and have it stored in a tuple under the same index in as the relevant city name `test_cities_location_data`. Alternatively, I could have added the city name as another item in the tuple, but it was already in the starter code so I didn't bother trying to refactor too hard. 
+I prepended test_ to the variable names of larger scope so that I could compare the outputs in separate cells. Essentially, the solution I used was to add another list `test_cities_location_data` that is initialized as the `test_cities` list is initialized. I referenced the source for citipy [here](https://github.com/wingchen/citipy) and saw that there were public fields for latitude, longitude, and country code we could access for a `city` object. So once a `city` object is returned by `nearest_city()`, we can grab the other location data using dot notation, and have it stored in a tuple under the same index in as the relevant city name `test_cities_location_data`. 
 
-But this solves our collision issue. Now we are grabbing weather data using OpenWeather purely off of latitude and longitude of the nearest city to our original random locations. Paris, Texas is included in our analysis, and before it was always excluded.
+But this solves our collision issue. Now we are grabbing weather data using OpenWeather purely off of latitude and longitude of the nearest city to our original random locations. Paris, Texas is included in our analysis, and before it was always excluded. We still have duplicate names being restricted when the list of cities is created (so once we have Paris, Texas, we can't have Paris, France too), but I think this allows for a more random city distribution. 
+
+You could argue that this change was fairly inconsequential. The nature of our selection process is already not random - coastal cities will be selected more often because of lat-lng pairs that result in ocean locations. There will already be a skew, and that's a rather severe one for weather data. Proximity to water/the coast is one of the largest factors in climate.
+
+### Directory and Path Changes
+
+WeatherPy.ipynb is located in the scipts_and_notebooks directory of this repo. To write to the output_data directory, I had to prepend the provided paths with "../" to get the parent directory before checking for the output_data directory. 
 
 
 ### citipy Bug
@@ -83,6 +89,16 @@ print(f"{citipy.nearest_city(lat, lng).city_name}")
 ```
 
 When I run this, it returns `santa monica`. Notice that Santa Monica, Philippines is located at (10.12651, 126.04144). Off by about 5 degrees in both latitude and longitude. Citipy does not work as expected here, and I imagine it is due to some flaw in the  Maxmind data set that citipy is based off of. I haven't tested very many other data points and checked, because it's rather time consuming. 
+
+I submitted the bug as an issue in GitHub. 
+
+
+### WeatherPy Analysis
+
+
+Note that the functions to generate linear regressions do not impose units onto the y axis labels. I could probably set up a dictionary based off column names to set these, but I didn't figure it was worth it. Units are from the OpenWeather weather api's [standard unit selection](https://openweathermap.org/weather-data). 
+
+For more in depth analysis for the various plots, check WeatherPy.ipynb in the scripts_and_notebooks directory. 
 
 
 
