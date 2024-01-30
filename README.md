@@ -102,6 +102,100 @@ For more in depth analysis for the various plots, check WeatherPy.ipynb in the s
 
 
 
+### VacationPy Notes
+
+This assignment caught me a little bit by surprise - I missed a class while sick and I assume they went over how to use hvplot in more detail. I had to research several libraries and documentation for said libraries before breaking down and asking Chat-GPT how I could use the OSM tile to generate a plot from a pandas dataframe. The resulting mess of import statements result from my attempt to try to integrate the code it returned into my notebook.
+
+Still, I can't help but feel like I've failed to fully comprehend how to use those libraries. Relying on AI for documentation explanation is certainly far faster, but I feel like I haven't learned anything. I feel this integral urge to apologize to myself and to the grader for using it, even if using this tool is encouraged.
+
+I'll read more about this [here](https://hvplot.holoviz.org/user_guide/Introduction.html). I think I also got confused when the assignment description specified using the geoViews Python library, but it wasn't in the original import statements. The assignment also specified that "\[t\]he code needed to import the required libraries and load the CSV filed ... is provided to help you get started." 
+
+---------------------------------------------------------------
+
 
 ### Sources - WeatherPy
+
+citipy/citipy/citipy.py at master · wingchen/citipy
+https://github.com/wingchen/citipy/blob/master/citipy/citipy.py
+
+Create a Pandas DataFrame from List of Dicts - GeeksforGeeks
+https://www.geeksforgeeks.org/create-a-pandas-dataframe-from-list-of-dicts/
+
+Customize Rc — Matplotlib 3.8.2 documentation
+https://matplotlib.org/stable/gallery/misc/customize_rc.html#sphx-glr-gallery-misc-customize-rc-py
+
+python - Matplotlib - Border around scatter plot points - Stack Overflow
+https://stackoverflow.com/questions/50706901/matplotlib-border-around-scatter-plot-points
+
+Current weather data - OpenWeatherMap
+https://openweathermap.org/current
+
+Weather Data - OpenWeatherMap
+https://openweathermap.org/weather-data
+
+More Control Flow Tools — Python 3.12.1 documentation
+https://docs.python.org/3/tutorial/controlflow.html#defining-functions
+
+pandas.Series.name — pandas 2.2.0 documentation
+https://pandas.pydata.org/docs/reference/api/pandas.Series.name.html
+
+matplotlib.pyplot.annotate — Matplotlib 3.8.2 documentation
+https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html
+
+Annotating Plots — Matplotlib 3.8.2 documentation
+https://matplotlib.org/stable/gallery/text_labels_and_annotations/annotation_demo.html
+
+pylab_examples example code: annotation_demo.py — Matplotlib 2.0.2 documentation
+https://matplotlib.org/2.0.2/examples/pylab_examples/annotation_demo.html
+
+matplotlib.org/2.0.2/mpl_examples/pylab_examples/annotation_demo.py
+https://matplotlib.org/2.0.2/mpl_examples/pylab_examples/annotation_demo.py
+
+Identification of severe wind conditions using a Reynolds Averaged Navier-Stokes solver - IOPscience
+https://iopscience.iop.org/article/10.1088/1742-6596/75/1/012053
+
+
+### Sources - VacationPy
+
+Introduction — hvPlot 0.9.2 documentation
+https://hvplot.holoviz.org/user_guide/Introduction.html
+
+Projections — GeoViews v1.11.0
+https://geoviews.org/user_guide/Projections.html
+
+Points — HoloViews v1.18.1
+https://holoviews.org/reference/elements/bokeh/Points.html
+
+Tiles — HoloViews v1.18.1
+https://holoviews.org/reference/elements/bokeh/Tiles.html
+
+holoviews.element Package — HoloViews v1.18.1
+https://holoviews.org/reference_manual/holoviews.element.html#holoviews.element.Tiles.lon_lat_to_easting_northing
+
+Tiles — HoloViews v1.18.1
+https://holoviews.org/reference/elements/bokeh/Tiles.html
+
+ChatGPT
+https://chat.openai.com/
+
+python - Boolean subset in pandas - Stack Overflow
+https://stackoverflow.com/questions/28748402/boolean-subset-in-pandas
+
+python - How do I get the row count of a Pandas DataFrame? - Stack Overflow
+https://stackoverflow.com/questions/15943769/how-do-i-get-the-row-count-of-a-pandas-dataframe
+
+pandas.DataFrame.dropna — pandas 2.2.0 documentation
+https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dropna.html
+
+python - How to add an empty column to a dataframe? - Stack Overflow
+https://stackoverflow.com/questions/16327055/how-to-add-an-empty-column-to-a-dataframe
+
+Places API | Developer Documentation | Geoapify
+https://apidocs.geoapify.com/docs/places/#url-examples
+
+Places API | Developer Documentation | Geoapify
+https://apidocs.geoapify.com/docs/places/#categories
+
+Colormaps — HoloViews v1.18.1
+https://holoviews.org/user_guide/Colormaps.html
 
